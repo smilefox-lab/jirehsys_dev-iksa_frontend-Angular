@@ -1,0 +1,89 @@
+
+<mat-card fxShow.gt-sm="true" fxHide.lt-sm="true" (click)="showProperty(property.id)">
+  <mat-card-content fxLayout="row" fxLayoutGap="1rem">
+    <img [src]="imageUrl" [alt]="property.name" fxFlex="25">
+    <section fxLayout="column" fxFlex="75" fxLayoutGap="1rem">
+      <div class="property-header-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+        <h1>{{ property.id }} - {{ property.name }}</h1>
+        <span class="iksa-badge-primary">{{ property.status }}</span>
+      </div>
+      <div class="property-header-location" fxLayoutAlign="start center">
+        <mat-icon color="primary" fontSet="material-icons-outlined">place</mat-icon>{{ property.location }}
+      </div>
+      <section class="property-content" fxLayout="row wrap">
+
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">Valor</div>
+          <div class="property-content-value">{{ property?.appraisal | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">Arriendo</div>
+          <div class="property-content-value">{{ property?.contract?.quota | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">Rentabilidad</div>
+          <div class="property-content-value">{{ property?.profitability }}</div>
+        </div>
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">M2 de la propiedad</div>
+          <div class="property-content-value">{{ property?.square | number:'0.0-2':'cl' }}</div>
+        </div>
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">Rol</div>
+          <div class="property-content-value">{{ property?.role }}</div>
+        </div>
+        <div fxFlex.gt-sm="33">
+          <div class="property-content-title">Tipo de propiedad</div>
+          <div class="property-content-value">{{ property?.type?.name }}</div>
+        </div>
+
+      </section>
+    </section>
+  </mat-card-content>
+</mat-card>
+
+<mat-card fxShow.gt-sm="false" fxHide.lt-sm="false" (click)="showProperty(property.id)">
+  <mat-card-content fxLayout.lt-sm="column" fxLayoutGap="1rem">
+
+    <section fxLayout.lt-sm="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+      <div class="box-image" fxFlex.lt-sm="25"><img [src]="imageUrl" [alt]="property.name"></div>
+      <section fxLayout="column" fxFlex="75" fxLayoutGap="1rem">
+        <div class="property-header-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+          <h1>{{ property.id }}</h1>
+          <span class="iksa-badge-primary">{{ property.status }}</span>
+        </div>
+        <div class="property-header-location" fxLayoutAlign="start start">
+          <mat-icon color="primary" fontSet="material-icons-outlined">place</mat-icon>{{ property.location }}
+        </div>
+      </section>
+    </section>
+
+    <section class="property-content" fxLayout.lt-sm="row wrap">
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">Valor</div>
+        <div class="property-content-value">{{ property?.appraisal  | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+      </div>
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">Arriendo</div>
+        <div class="property-content-value">{{ property?.contract?.quota | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+      </div>
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">Rentabilidad</div>
+        <div class="property-content-value">{{ property?.profitability }}</div>
+      </div>
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">M2 de la propiedad</div>
+        <div class="property-content-value">{{ property?.square | number:'0.0-2':'cl' }}</div>
+      </div>
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">Rol</div>
+        <div class="property-content-value">{{ property?.role }}</div>
+      </div>
+      <div fxFlex.lt-sm="33">
+        <div class="property-content-title">Tipo de propiedad</div>
+        <div class="property-content-value">{{ property?.type?.name }}</div>
+      </div>
+    </section>
+
+  </mat-card-content>
+</mat-card>

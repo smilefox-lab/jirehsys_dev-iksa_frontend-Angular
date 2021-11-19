@@ -1,0 +1,30 @@
+.mat-datepicker-content {
+  color: mat-color($korlaet-background-black, 50) !important;
+}
+
+.mat-datepicker-content {
+  .mat-calendar-next-button,
+  .mat-calendar-previous-button {
+    color: mat-color($korlaet-background-black, 50) !important;
+  }
+}
+
+.mat-calendar-table-header {
+  color: mat-color($korlaet-background-black, 200) !important;
+}
+
+.mat-calendar-body-label {
+  color: mat-color($korlaet-background-black, 100) !important;
+}
+
+.mat-calendar-body-cell-content {
+  color: mat-color($korlaet-background-black, 100) !important;
+}
+
+.mat-calendar-arrow {
+  border-top-color: mat-color($korlaet-background-black, 50) !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: mat-color($korlaet-yellow, 400) !important;
+}

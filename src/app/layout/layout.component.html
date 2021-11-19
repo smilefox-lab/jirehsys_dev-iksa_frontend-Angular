@@ -1,0 +1,7 @@
+<div fxLayout.lt-md="column" fxLayout="row">
+  <app-sidebar></app-sidebar>
+  <main fxFlex="auto" fxLayout="column" [ngClass]="{ 'expanded': isExpanded, 'collapsed': !isExpanded }">
+    <app-topnav></app-topnav>
+    <router-outlet></router-outlet>
+  </main>
+</div>

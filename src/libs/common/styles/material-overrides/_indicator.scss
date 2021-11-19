@@ -1,0 +1,65 @@
+@import '../../../../libs/common/styles/theme';
+
+.mat-icon-rotate-positive-bg {
+  background-color: map-get($korlaet-yellow, 500);
+  opacity: 0.9;
+}
+
+.mat-icon-rotate-positive {
+  -moz-transform: scale(0.45) rotate(45deg);
+  -webkit-transform: scale(0.45) rotate(45deg);
+  -o-transform: scale(0.45) rotate(45deg);
+  -ms-transform: scale(0.45) rotate(45deg);
+  transform: scale(0.45) rotate(45deg);
+  color: map-get($korlaet-yellow, 500);
+  background-color: transparentize(map-get($korlaet-yellow, 500), 0.9);
+  border-radius: 50%;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2em;
+}
+
+.mat-icon-rotate-negative {
+  -moz-transform: scale(0.45) rotate(135deg);
+  -webkit-transform: scale(0.45) rotate(135deg);
+  -o-transform: scale(0.45) rotate(135deg);
+  -ms-transform: scale(0.45) rotate(135deg);
+  transform: scale(0.45) rotate(135deg);
+  color: map-get($korlaet-red, 500);
+  background-color: transparentize(map-get($korlaet-red, 500), 0.9);
+  border-radius: 50%;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2em;
+}
+
+.indicator-rent-title {
+  font-size: 14px;
+  color: map-get($korlaet-background-black, 100);
+}
+
+.indicator-rent-content {
+  font-size: 24px;
+}
+
+.indicator-sub-title-positive {
+  font-size: 11px;
+  color: map-get($korlaet-yellow, 500);
+}
+
+.indicator-sub-title-negative {
+  font-size: 11px;
+  color: map-get($korlaet-red, 500);
+}
+
+.indicator-sub-title-equal {
+  font-size: 11px;
+  color: map-get($korlaet-background-black, 100);
+}
+
+.indicator-sub-title-gray {
+  font-size: 11px;
+  color: map-get($korlaet-background-black, 200);
+}

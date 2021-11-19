@@ -1,0 +1,22 @@
+
+.mat-progress-bar {
+  border-radius: 2px;
+}
+
+.mat-progress-bar-buffer {
+  background-color: map-get($korlaet-background-black, 800) !important;
+}
+
+.mat-progress-bar-background {
+  fill: transparent !important;
+}
+
+.mat-progress-bar {
+  .mat-progress-bar-element {
+    border-radius: 2px;
+  }
+
+  .mat-progress-bar-fill::after {
+    border-radius: 0 2px 2px 0;
+  }
+}

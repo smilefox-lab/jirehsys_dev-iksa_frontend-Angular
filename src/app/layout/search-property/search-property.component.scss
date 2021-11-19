@@ -1,0 +1,30 @@
+@import '../../../libs/common/styles/theme';
+
+.iksa-property-results {
+  padding-right: 4em;
+
+  ::ng-deep {
+    .mat-paginator {
+      color: map-get($korlaet-background-black, 200);
+      background-color: map-get($korlaet-background-black, 800);
+      border-radius: 0.5em;
+    }
+
+    .mat-icon-button[disabled][disabled] {
+      color: map-get($korlaet-background-black, 50);
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 1.25em !important;
+    }
+  }
+}
+
+.page-title {
+  margin-bottom: 2em !important;
+}
+
+@media (max-width: 599px) {
+  .iksa-property-results {
+    padding-right: 0;
+  }
+}

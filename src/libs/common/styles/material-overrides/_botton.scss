@@ -1,0 +1,46 @@
+
+$mat-button-padding: 0 2.5rem !important;
+$mat-button-border-radius: 1.5rem !important;
+
+.mat-raised-button,
+.mat-flat-button {
+  padding: $mat-button-padding;
+  border-radius: $mat-button-border-radius;
+}
+
+.export-button {
+  padding-right: 1em;
+  & > *:not(:last-child) {
+    margin-right: 1em;
+  }
+  .mat-icon {
+    transform: scale(0.6);
+  }
+
+  .mat-raised-button {
+    font-size: 12px;
+    font-weight: 900;
+    line-height: normal;
+    text-transform: uppercase;
+    min-width: 6em;
+    padding: 0 1.25em !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .export-button {
+    padding-right: 0;
+    & > *:not(:last-child) {
+      margin-right: 0.5em;
+    }
+    .mat-icon {
+      transform: scale(0.6);
+    }
+
+    .mat-raised-button {
+      font-size: 8px;
+      min-width: 6em;
+      padding: 0 1.25em !important;
+    }
+  }
+}

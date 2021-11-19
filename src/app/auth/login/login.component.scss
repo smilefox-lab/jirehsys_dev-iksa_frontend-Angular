@@ -1,0 +1,15 @@
+@import '../../../libs/common/styles/theme';
+
+.login-form {
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  a {
+    text-decoration: none;
+    color: map-get($korlaet-background-black, 50);
+  }
+}
+
+.reset-password {
+  padding-bottom: 0.5rem;
+}

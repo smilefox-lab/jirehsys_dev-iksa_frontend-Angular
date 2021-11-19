@@ -1,0 +1,433 @@
+
+<div class="page-title"><span fxShow.lt-sm="false">Vista de la </span>Propiedad: {{ property?.id }}</div>
+
+<app-tabs [options]="sections" [showFilter]="false"></app-tabs>
+
+<div fxLayout="column">
+  <section
+    id="overview"
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="0.5rem"
+  >
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" fxFlex="35">
+      <mat-tab label="General">
+        <div fxLayout="column" fxLayoutGap="2rem">
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">Empresa</div>
+              <div class="general-content">{{ property?.company?.name }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">Tipo</div>
+              <div class="general-content">{{ property?.type?.name }}</div>
+            </div>
+          </section>
+
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">Comuna</div>
+              <div class="general-content">{{ property?.commune?.name }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">Dirección</div>
+              <div class="general-content">{{ property?.location }}</div>
+            </div>
+          </section>
+
+          <section fxLayout="row" fxFlex>
+            <div fxFlex="50">
+              <div class="general-title">Rol</div>
+              <div class="general-content">{{ property?.role }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">Estatus</div>
+              <div class="general-content">{{ property?.status }}</div>
+            </div>
+          </section>
+
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">M2 Propiedad</div>
+              <div class="general-content">{{ property?.square | number:'0.0-2':'cl' }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">M2 Construidos</div>
+              <div class="general-content">{{ property?.square_build | number:'0.0-2':'cl' }}</div>
+            </div>
+          </section>
+        </div>
+      </mat-tab>
+      <mat-tab label="Galería">
+        <section class="mat-tab-content">
+          <div class="images-carousel">
+            <mat-carousel
+              timings="250ms ease-in"
+              [autoplay]="false"
+              interval="5000"
+              color="accent"
+              maxWidth="auto"
+              slideHeight="100%"
+              [maintainAspectRatio]="false"
+              [loop]="true"
+              [hideArrows]="false"
+              [hideIndicators]="false"
+              [useKeyboard]="true"
+              [useMouseWheel]="false"
+              orientation="ltr"
+            >
+              <mat-carousel-slide
+                #matCarouselSlide
+                *ngFor="let slide of property?.images; let i = index"
+                [image]="slide"
+                overlayColor="#00000040"
+                [hideOverlay]="false"
+              ></mat-carousel-slide>
+            </mat-carousel>
+          </div>
+        </section>
+      </mat-tab>
+      <mat-tab label="Geolocalización">
+        <div class="mat-tab-content">
+          <agm-map [latitude]="property?.coordinates?.lat" [longitude]="property?.coordinates?.lng" [zoom]="15"
+            [disableDefaultUI]="true">
+            <agm-marker [latitude]="property?.coordinates?.lat" [longitude]="property?.coordinates?.lng"></agm-marker>
+          </agm-map>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <mat-tab-group mat-align-tabs="start" fxFlex="28">
+      <mat-tab label="Arrendatario">
+        <div class="mat-tab-content" fxLayout="column" fxLayoutGap="2rem">
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">Nombre</div>
+              <div class="general-content">{{ property?.lessee?.name }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">Correo de contacto</div>
+              <div class="general-content">{{ property?.lessee?.email }}</div>
+            </div>
+          </section>
+
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">Legal o Natural</div>
+              <div class="general-content">{{ property?.lessee?.type | titlecase }}</div>
+            </div>
+            <div fxFlex="50">
+              <div class="general-title">Teléfono de contacto</div>
+              <div class="general-content">{{ property?.lessee?.phone }}</div>
+            </div>
+          </section>
+
+          <section fxLayout="row">
+            <div fxFlex="50">
+              <div class="general-title">Rut</div>
+              <div class="general-content">{{ property?.lessee?.rut }}</div>
+            </div>
+
+            <div fxFlex="50">
+              <div class="general-title">Nombre de contacto</div>
+              <div class="general-content">{{ property?.lessee?.contact_name }}</div>
+            </div>
+          </section>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div
+      fxLayout="column"
+      fxLayout.lt-sm="row"
+      fxLayoutAlign.lt-sm="start start"
+      fxLayoutGap="0.5rem"
+      fxFlex="auto"
+    >
+      <mat-card fxLayout="column" fxFlex.lt-sm>
+        <div class="canon-title">Canon</div>
+        <div class="canon-content">{{ property?.top_payments[0]?.paid | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        <div fxLayoutAlign="start center">
+          <mat-icon [ngClass]="selectClassIcon(getOperator(property?.top_payments[0]?.paid, property?.top_payments[1]?.paid))">arrow_upward</mat-icon>
+          <span [ngClass]="selectClasstitle(getOperator(property?.top_payments[0]?.paid, property?.top_payments[1]?.paid))">{{ getDiff(property?.top_payments[0]?.paid, property?.top_payments[1]?.paid)}}%&nbsp;</span>
+          <span class="indicator-sub-title-gray">mes pasado</span>
+        </div>
+      </mat-card>
+
+      <mat-card fxFlex.lt-sm="60">
+        <mat-card-header>
+          <mat-card-title>Último 3 pagos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="dataSourceTop" matSort>
+            <ng-container matColumnDef="month">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-75"> Mes </th>
+              <td mat-cell *matCellDef="let row"> {{ changeDate(row.date) | date:'MMMM':'':'cl' | titlecase }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cutoff_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-100"> Días de Pago </th>
+              <td mat-cell *matCellDef="let row"> {{ row.date }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="paid">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-75"> Pagado </th>
+              <td mat-cell *matCellDef="let row"> {{ row.paid | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['month', 'cutoff_date', 'paid']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['month', 'cutoff_date', 'paid']"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <section
+    id="indicators"
+    fxFlex
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="0.5em"
+    fxLayoutAlign="start start"
+  >
+    <mat-card fxFlex fxLayout="column" fxLayoutGap="2rem">
+      <mat-card-header>
+        <mat-card-title>Indicadores de Propiedad</mat-card-title>
+        <mat-card-subtitle>Información general</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="grip-indicators">
+        <div class="indicator">
+          <div class="indicator-title">Compra</div>
+          <div class="indicator-content">{{ property?.buy | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Fecha de Compra</div>
+          <div class="indicator-content">{{ property?.date_deed }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Avaluo</div>
+          <div class="indicator-content">{{ property?.appraisal | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">UF</div>
+          <div class="indicator-sub-title">Tasación</div>
+          <div class="indicator-content">{{ property?.uf | number:'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Arriendo</div>
+          <div class="indicator-content">{{ property?.contract?.quota | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Rentabilidad</div>
+          <div class="indicator-content">{{ property?.profitability | number:'0.2-2':'cl' }}%</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Día de Facturación</div>
+          <div class="indicator-content">{{ changeDate(property?.contract?.cutoff_date) | date:'dd':'':'cl' | titlecase }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Inicio Contrato</div>
+          <div class="indicator-content">{{ property?.contract?.start_date }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Termino Contrato</div>
+          <div class="indicator-content">{{ property?.contract?.end_date }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">M2 Terreno</div>
+          <div class="indicator-content">{{ property?.square | number:'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">M2 Construidos</div>
+          <div class="indicator-content">{{ property?.square_build | number:'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Contribución Cuota</div>
+          <div class="indicator-content">{{ property?.contract?.contribution_quota | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+        </div>
+        <div class="indicator">
+          <div class="indicator-title">Mes de pago</div>
+          <div class="indicator-sub-title">Contribución</div>
+          <div class="indicator-content">{{ changeDate(property?.contract?.end_date) | date:'MMMM':'':'cl' | titlecase }}</div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card fxFlex="18">
+      <mat-card-header>
+        <mat-card-title>Indicadores de Arriendo</mat-card-title>
+        <mat-card-subtitle>Holding</mat-card-subtitle>
+      </mat-card-header>
+      <section
+      *ngIf="{ holdingL: holdingLatest$ | async, holdingB: holdingBefore$ | async } as values;"
+        fxLayout="column"
+        fxLayout.lt-sm="row wrap"
+        fxLayoutAlign="start stretch"
+        fxLayoutGap.gt-sm="1rem"
+      >
+        <section class="indicator-rent-container" fxFlex.lt-sm="50" fxFlex="100">
+          <div class="indicator-rent-title">Total Arriendo</div>
+          <div class="indicator-rent-content my-1">{{ values?.holdingL?.expected | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+          <div fxLayoutAlign="start center">
+            <mat-icon [ngClass]="selectClassIcon(getOperator(values.holdingL?.expected, values.holdingB?.expected))">arrow_upward</mat-icon>
+            <span [ngClass]="selectClasstitle(getOperator(values.holdingL?.expected, values.holdingB?.expected))">{{ getDiff(values.holdingL?.expected, values.holdingB?.expected)}}%&nbsp;</span>
+            <span class="indicator-sub-title-gray">mes pasado</span>
+          </div>
+        </section>
+
+        <section class="indicator-rent-container" fxFlex.lt-sm="50" fxFlex="100">
+          <div class="indicator-rent-title">Total Pagado</div>
+          <div class="indicator-rent-content my-1">{{ values?.holdingL?.paid | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+          <div fxLayoutAlign="start center">
+            <mat-icon [ngClass]="selectClassIcon(getOperator(values.holdingL?.paid, values.holdingB?.paid))">arrow_upward</mat-icon>
+            <span [ngClass]="selectClasstitle(getOperator(values.holdingL?.paid, values.holdingB?.paid))">{{ getDiff(values.holdingL?.paid, values.holdingB?.paid)}}%&nbsp;</span>
+            <span class="indicator-sub-title-gray">mes pasado</span>
+          </div>
+        </section>
+
+        <section class="indicator-rent-container" fxFlex.lt-sm="50" fxFlex="100">
+          <div class="indicator-rent-title">Total Adeudado</div>
+          <div class="indicator-rent-content my-1">{{ values?.holdingL?.owed | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+          <div fxLayoutAlign="start center">
+            <mat-icon [ngClass]="selectClassIcon(getOperator(values.holdingL?.owed, values.holdingB?.owed))">arrow_upward</mat-icon>
+              <span [ngClass]="selectClasstitle(getOperator(values.holdingL?.owed, values.holdingB?.owed))">{{ getDiff(values.holdingL?.owed, values.holdingB?.owed)}}%&nbsp;</span>
+              <span class="indicator-sub-title-gray">mes pasado</span>
+          </div>
+        </section>
+
+        <section class="indicator-rent-container" fxFlex.lt-sm="50" fxFlex="100">
+          <div class="indicator-rent-title">Progreso</div>
+          <div class="indicator-rent-content my-1">{{ values.holdingL?.progress }}%</div>
+          <mat-progress-bar class="mb-1" mode="determinate" [value]="values.holdingL?.progress"></mat-progress-bar>
+        </section>
+      </section>
+    </mat-card>
+  </section>
+
+  <div
+    class="iksa-date-picker"
+    fxShow.lt-sm="false"
+    fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <span class="page-sub-title">Historial de Pagos</span>
+    <form [formGroup]="filterForm">
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="fromDate" formControlName="fromDate" (dateChange)="applyFilter($event)" placeholder="Seleciona una fecha">
+        <mat-datepicker-toggle matSuffix [for]="fromDate">
+          <mat-icon matDatepickerToggleIcon color="primary">keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #fromDate></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <section
+    id="payment_history"
+    fxLayout.lt-sm="column"
+    fxLayout="row"
+    fxLayoutAlign.gt-sm="start start"
+    fxLayoutGap="0.5rem">
+    <mat-card fxFlex.lt-sm="100" fxFlex="40">
+      <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-title>Historial de Pago</mat-card-title>
+        <div class="export-button">
+          <button mat-raised-button color="primary" (click)="exportAsXLS()">
+            <mat-icon>get_app</mat-icon>.xls
+          </button>
+          <button mat-raised-button color="accent" (click)="exportAsPDF()">
+            <mat-icon>get_app</mat-icon>.pdf
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content class="table-history">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="month">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mes </th>
+            <td mat-cell *matCellDef="let row"> {{ changeDate(row.date) | date:'MMMM':'':'cl' | titlecase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cutoff_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-125"> Días de Pago </th>
+            <td mat-cell *matCellDef="let row"> {{ row.date }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="paid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-100"> Monto Real </th>
+            <td mat-cell *matCellDef="let row"> {{ row.paid | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expected">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-100"> Esperado </th>
+            <td mat-cell *matCellDef="let row"> {{ row.expected | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['month', 'cutoff_date', 'paid', 'expected']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['month', 'cutoff_date', 'paid', 'expected']"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex.lt-sm="100" fxFlex="60">
+      <mat-card-header>
+        <mat-card-title>Historial de Pagos</mat-card-title>
+        <mat-card-subtitle>Gráfico</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <app-line [series]="lineData"></app-line>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section id="files" fxFlex="100">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms">
+      <mat-tab label="Documento Técnico">
+        <div class="mat-tab-content files" fxLayout="column" fxLayoutGap="0.5em">
+          <div class="document-container" *ngFor="let file of property?.files_technical">
+            <div class="document-item">
+              <a (click)="download(file)">
+                <mat-icon color="primary">get_app</mat-icon>
+
+                <span>{{ getFileName(file) | lowercase }}</span>
+              </a>
+            </div>
+
+            <mat-icon color="primary" fontSet="material-icons-outlined">text_snippet</mat-icon>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Documento Legales">
+        <div class="mat-tab-content files" fxLayout="column" fxLayoutGap="0.5em">
+          <div class="document-container" *ngFor="let file of property?.files_legal">
+            <div class="document-item">
+              <a (click)="download(file)">
+                <mat-icon color="primary">get_app</mat-icon>
+
+                <span>{{ getFileName(file) | lowercase }}</span>
+              </a>
+            </div>
+
+            <mat-icon color="primary" fontSet="material-icons-outlined">text_snippet</mat-icon>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Planos">
+        <div class="mat-tab-content files" fxLayout="column" fxLayoutGap="0.5em">
+          <div class="document-container" *ngFor="let file of property?.files_plane">
+            <div class="document-item">
+              <a (click)="download(file)">
+                <mat-icon color="primary">get_app</mat-icon>
+
+                <span>{{ getFileName(file) | lowercase }}</span>
+              </a>
+            </div>
+
+            <mat-icon color="primary" fontSet="material-icons-outlined">text_snippet</mat-icon>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </section>
+</div>

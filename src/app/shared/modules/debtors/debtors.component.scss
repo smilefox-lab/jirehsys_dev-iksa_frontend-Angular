@@ -1,0 +1,53 @@
+@import '../../../../libs/common/styles/theme';
+
+.overview-item-title {
+  font-size: 12px;
+  color: map-get($korlaet-background-black, 200) !important;
+  margin-bottom: 0.25rem;
+}
+
+.overview-item-content {
+  font-size: 16px;
+  font-weight: 600;
+
+  &.big {
+    font-size: 42px;
+    line-height: 1;
+  }
+}
+
+a:hover,
+a:focus {
+  text-decoration: none !important;
+  opacity: 0.8;
+}
+
+.table-debtor {
+  min-height: 300px;
+  max-height: 400px;
+
+  .cdk-column-debtor {
+    min-width: 35%;
+  }
+}
+
+@media (min-width: 600px) {
+  .overview-container {
+    &:not(:last-of-type) {
+      margin-right: 1em;
+      border-right: 1px solid map-get($korlaet-background-black, 400) !important;
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .overview-container {
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em;
+    border-right: none;
+    &:nth-child(odd) {
+      margin-right: 1em;
+      border-right: 1px solid map-get($korlaet-background-black, 400) !important;;
+    }
+  }
+}

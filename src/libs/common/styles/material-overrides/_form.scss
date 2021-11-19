@@ -1,0 +1,161 @@
+
+$input-color: mat-color($korlaet-background-black, 50);
+$bg-color: mat-color($korlaet-background-black, 800);
+
+.invalid-feedback {
+  color: mat-color($korlaet-red, 800);
+}
+
+.mat-checkbox {
+  .mat-checkbox-frame {
+    border-color: $bg-color;
+    background-color: $bg-color;
+  }
+}
+
+.mat-form-field-appearance-outline {
+  .mat-form-field-outline {
+    color: $bg-color !important;
+  }
+  .mat-form-field-infix {
+    padding: 0.75em 0 0.75em 0 !important;
+    border-top: 0.3em solid transparent;
+  }
+
+  .mat-form-field-outline-start {
+    background-color: $bg-color;
+  }
+
+  .mat-form-field-outline-end {
+    @extend .mat-form-field-outline-start;
+  }
+
+  .mat-form-field-prefix,
+  .mat-form-field-suffix {
+    top: 0 !important;
+    font-size: 11px !important;
+    color: mat-color($korlaet-background-black, 200) !important;
+    padding-right: 0.25rem;
+  }
+
+  .mat-form-field-prefix {
+    mat-icon {
+      transform: scale(1.5) translateY(15%);
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .mat-form-field-prefix {
+    top: 0 !important;
+  }
+
+  .mat-select-arrow-wrapper {
+    transform: translateY(0%) !important;
+  }
+}
+
+.mat-select-value {
+  color: $input-color !important;
+}
+
+.mat-form-field {
+  &.mat-focused {
+    &.mat-primary {
+      .mat-select-arrow {
+        color: $input-color !important;
+      }
+    }
+  }
+}
+
+.mat-select-arrow {
+  color: $input-color !important;
+}
+
+.my-panel-color {
+  &.mat-select-panel {
+    background-color: $bg-color !important;
+  }
+}
+
+.mat-option {
+  color: $input-color !important;
+}
+
+.mat-select-placeholder,
+input::placeholder {
+  color: mat-color($korlaet-background-black, 200) !important;
+}
+
+.mat-form-field:not(.mat-form-field-appearance-legacy) {
+  .mat-form-field-suffix {
+    .mat-icon-button {
+      transform: translate(0.5em, 0.35em);
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem !important;
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.form-control {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $input-color;
+  background-color: $bg-color;
+  border: 1px solid $bg-color;
+  background-clip: padding-box;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &.is-invalid {
+    border: 1px solid mat-color($korlaet-red, 800);
+  }
+  // Remove select outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $input-color;
+  }
+
+  &:focus {
+    color: $input-color;
+    outline: 0;
+  }
+
+  &::placeholder {
+    color: mat-color($korlaet-background-black, 100) !important;
+    opacity: 1;
+  }
+}
+
+.iksa-date-picker {
+  .mat-form-field-appearance-outline {
+    .mat-form-field-outline-start {
+      border-radius: 2em 0 0 2em;
+      min-width: 2em;
+    }
+
+    .mat-form-field-outline-end {
+      border-radius: 0 2em 2em 0;
+    }
+  }
+
+  .mat-input-element {
+    padding: 0 0.5em;
+  }
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0em !important;
+}

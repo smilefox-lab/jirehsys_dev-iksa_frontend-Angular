@@ -1,0 +1,39 @@
+<form class="password-reset-token-form" [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+  <h2 class="app-name">Restablecer contraseña</h2>
+
+  <div class="form-group">
+    <label for="email">E-mail</label>
+    <input formControlName="email" type="text" name="email" id="email" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">El e-mail es requerido</div>
+      <div *ngIf="f.email.errors.email">El e-mail debe ser una dirección valida</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Nueva contraseña</label>
+    <input formControlName="password" type="password" name="password" id="password" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">La contraseña es requerido</div>
+      <div *ngIf="f.password.errors.minlength">La contraseña debe ser mayor o igual a 6 caracteres</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">Confirmar contraseña</label>
+    <input formControlName="password_confirmation" type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.password_confirmation.errors }">
+    <div *ngIf="submitted && f.password_confirmation.errors" class="invalid-feedback">
+      <div *ngIf="f.password_confirmation.errors.required">El campo corfirmación es requerido</div>
+      <div *ngIf="f.password_confirmation.errors.mustMatch">Debe coincidir con la contraseña</div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-sm
+    class="form-group">
+    <a [routerLink]="['/auth/login']">Volver a la pagina de incio de sesión</a>
+    <button mat-raised-button color="primary" [disabled]="loading">Actualizar</button>
+  </div>
+</form>

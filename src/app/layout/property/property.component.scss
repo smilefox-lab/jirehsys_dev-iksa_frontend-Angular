@@ -1,0 +1,19 @@
+
+app-general-information {
+  margin-bottom: 32px;
+}
+
+mat-card {
+  margin-bottom: 32px;
+}
+
+.table-container {
+  max-height: 600px;
+}
+
+@media (max-width: 599px) {
+
+  .date-filter {
+    width: 140px;
+  }
+}

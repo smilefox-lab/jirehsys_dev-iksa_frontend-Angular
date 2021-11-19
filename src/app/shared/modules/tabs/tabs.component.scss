@@ -1,0 +1,64 @@
+@import '../../../../libs/common/styles/theme';
+
+.tab-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.tab-menu {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 1 1 75%;
+}
+
+.tab-filter {
+  flex: 1 1 25%;
+}
+
+.tab-item:not(:last-of-type) {
+  margin-right: 2em;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 17px;
+  color: map-get($korlaet-background-black, 50);
+
+  &.active {
+    border-bottom: 2px solid map-get($korlaet-yellow, 500);
+    margin-bottom:-2px;
+  }
+
+  &:hover {
+    border-bottom: 2px solid map-get($korlaet-yellow, 500);
+    margin-bottom:-2px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 599px) {
+
+  .tab-menu {
+    flex: 1 1 100%;
+  }
+
+  .tab-filter {
+    position: absolute;
+    right: 0;
+    top: -62px;
+    width: 140px;
+  }
+
+  .tab-item:not(:last-of-type) {
+    margin-right: 0.5em;
+  }
+
+  a {
+    font-size: 14px;
+  }
+}

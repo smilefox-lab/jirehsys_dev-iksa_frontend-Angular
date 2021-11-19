@@ -1,0 +1,155 @@
+@import '~@angular/material/theming';
+@import '~ngx-toastr/toastr.css';
+@import 'libs/common/styles/theme';
+@import 'libs/common/styles/material-overrides/material-overrides';
+
+@include mat-core();
+
+$custom-theme-primary: mat-palette($korlaet-yellow);
+$custom-theme-accent: mat-palette($korlaet-red);
+$custom-theme-warn: mat-palette($mat-red);
+
+$custom-theme-theme: korlaet-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Nunito Sans, Roboto, monospace',
+  $headline: mat-typography-level(28px, 32px, 600),
+  $body-1: mat-typography-level(14px, 20px, 400)
+);
+
+@include angular-material-typography($custom-typography);
+
+@include angular-material-theme($custom-theme-theme);
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: mat-color($korlaet-background-black, 50);
+  background-color: map_get($korlaet-background-black, 600);
+}
+
+.mat-drawer-container {
+  color: mat-color($korlaet-background-black, 50) !important;
+}
+
+.iksa-badge-primary {
+  color: mat-color($korlaet-background-black, 50) !important;
+  background-color: mat-color($korlaet-yellow, 500) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem 2rem 0.0625rem;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  height: 1.75rem;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  overflow: visible;
+  transform: translate3d(0, 0, 0);
+  transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1rem;
+}
+
+
+.indicator-title {
+  font-size: 20px;
+  color: mat-color($korlaet-background-black, 200) !important;
+  margin-bottom: 1rem;
+}
+
+.status-red {
+  color: map-get($korlaet-red, 500) !important;
+  font-weight: 600;
+}
+
+.status-yellow {
+  color: map-get($korlaet-yellow, 500) !important;
+  font-weight: 600;
+}
+
+.page-title {
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.page-sub-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: map-get($korlaet-background-black, 200);
+  margin-bottom: 1em;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: map-get($korlaet-background-black, 800);
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: map-get($korlaet-background-black, 400);
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparentize(map-get($korlaet-background-black, 300), 0.5);
+}
+
+a {
+  text-decoration: none;
+}
+
+.mt-2 {
+  margin-top: 16px !important;
+}
+
+.mb-2 {
+  margin-bottom: 16px !important;
+}
+
+.mt-1 {
+  margin-top: 8px !important;
+}
+
+.mb-1 {
+  margin-bottom: 8px !important;
+}
+
+.my-2 {
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.my-1 {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+@media (max-width: 599px) {
+  .page-title {
+    font-size: 24px;
+    line-height: normal;
+    margin-bottom: 24px;
+  }
+
+  .iksa-badge-primary {
+    padding: 0.1em 1rem 0.05em;
+    font-size: 12px;
+    text-transform: uppercase;
+    height: 1.5em;
+  }
+}

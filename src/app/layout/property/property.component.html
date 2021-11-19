@@ -1,0 +1,172 @@
+
+<ng-container >
+  <section fxLayout="column">
+    <div class="page-title">Propiedades</div>
+
+    <app-tabs [options]="sections" [showFilter]="false"></app-tabs>
+
+    <app-general-information id="property" [showTitle]="false" [showLink]="false"></app-general-information>
+
+    <span id="indicators" class="page-sub-title">Indicadores de Propiedad</span>
+
+    <app-search-addon placeholder="Dirección, Rol, Comuna" (filter)="search($event)"></app-search-addon>
+
+    <mat-card fxLayout="column" id="properties">
+      <div class="iksa-date-picker" fxLayout="row" fxFlex fxLayoutAlign="space-between center">
+        <mat-form-field class="date-filter" appearance="outline">
+          <input matInput [matDatepicker]="picker" (dateChange)="addEvent($event)" placeholder="Fecha...">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon color="primary">keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="export-button">
+          <button mat-raised-button color="primary" (click)="exportAsXLS()">
+            <mat-icon>get_app</mat-icon>.xls
+          </button>
+          <button mat-raised-button color="accent" (click)="exportAsPDF()">
+            <mat-icon>get_app</mat-icon>.pdf
+          </button>
+        </div>
+      </div>
+
+      <mat-card-content class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <th class="w-75 text-center" mat-header-cell *matHeaderCellDef mat-sort-header> CC </th>
+            <td class="text-center" mat-cell *matCellDef="let row">
+              <a [routerLink]="['/show-property/' + row.id]" class="status-yellow">
+                {{ row.id }}
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="property_name">
+            <th class="w-200" mat-header-cell *matHeaderCellDef mat-sort-header> Propiedad </th>
+            <td mat-cell *matCellDef="let row"> {{ row.property_name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lessee_contact_name">
+            <th class="w-200" mat-header-cell *matHeaderCellDef mat-sort-header> Contacto </th>
+            <td mat-cell *matCellDef="let row"> {{ row.lessee_contact_name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th class="w-100" mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row" [ngClass]="getStatusColor(row.status)"> {{ row.status }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="company">
+            <th class="w-200" mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </th>
+            <td mat-cell *matCellDef="let row"> {{ row.company_name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th class="w-100" mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+            <td mat-cell *matCellDef="let row"> {{ row.type }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="commune">
+            <th class="w-100" mat-header-cell *matHeaderCellDef mat-sort-header> Comuna </th>
+            <td mat-cell *matCellDef="let row"> {{ row.commune }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lessee">
+            <th class="w-200" mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+            <td mat-cell *matCellDef="let row"> {{ row.lessee_name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="start_date">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Contrato </th>
+            <td mat-cell *matCellDef="let row"> {{ row.start_date }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="role">
+            <th class="w-100" mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+            <td mat-cell *matCellDef="let row"> {{ row.role }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="square">
+            <th class="w-75 text-center" mat-header-cell *matHeaderCellDef mat-sort-header> m2 </th>
+            <td class="text-center" mat-cell *matCellDef="let row"> {{ row.square }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="appraisal">
+            <th class="w-125 text-right" mat-header-cell *matHeaderCellDef mat-sort-header> Avalúo </th>
+            <td class="text-right" mat-cell *matCellDef="let row"> {{ row.appraisal | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="enero">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Enero </th>
+            <td mat-cell *matCellDef="let row"> {{ row.enero | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="febrero">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Febrero </th>
+            <td mat-cell *matCellDef="let row"> {{ row.febrero | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="marzo">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Marzo </th>
+            <td mat-cell *matCellDef="let row"> {{ row.marzo | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="abril">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Abril </th>
+            <td mat-cell *matCellDef="let row"> {{ row.abril | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="mayo">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Mayo </th>
+            <td mat-cell *matCellDef="let row"> {{ row.mayo | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="junio">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Junio </th>
+            <td mat-cell *matCellDef="let row"> {{ row.junio | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="julio">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Julio </th>
+            <td mat-cell *matCellDef="let row"> {{ row.julio | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="agosto">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Agosto </th>
+            <td mat-cell *matCellDef="let row"> {{ row.agosto | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="septiembre">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Septiembre </th>
+            <td mat-cell *matCellDef="let row"> {{ row.septiembre | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="octubre">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Octubre </th>
+            <td mat-cell *matCellDef="let row"> {{ row.octubre | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="noviembre">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Noviembre </th>
+            <td mat-cell *matCellDef="let row"> {{ row.noviembre | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="diciembre">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Diciembre </th>
+            <td mat-cell *matCellDef="let row"> {{ row.diciembre | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cutoff_date">
+            <th class="w-125" mat-header-cell *matHeaderCellDef mat-sort-header> Día de Pago </th>
+            <td mat-cell *matCellDef="let row"> {{ row.cutoff_date }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['id', 'property_name', 'lessee_contact_name', 'status', 'company', 'type', 'commune', 'lessee', 'start_date', 'role', 'square', 'appraisal', 'cutoff_date', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['id', 'property_name', 'lessee_contact_name', 'status', 'company', 'type', 'commune', 'lessee', 'start_date', 'role', 'square', 'appraisal', 'cutoff_date', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</ng-container>

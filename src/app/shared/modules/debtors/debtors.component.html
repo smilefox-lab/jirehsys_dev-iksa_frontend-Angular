@@ -1,0 +1,127 @@
+<section fxLayout="column" fxLayoutGap="0.5rem">
+  <div class="page-sub-title" *ngIf="showTitle">Deudores</div>
+
+  <section
+    fxLayout.lt-sm="column"
+    fxLayout="row"
+    fxLayoutGap="0.5rem"
+  >
+    <section fxLayout="column" fxLayoutGap="0.5rem" fxFlex>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Overview Deudores</mat-card-title>
+          <mat-card-subtitle>Deudada Mensual</mat-card-subtitle>
+        </mat-card-header>
+        <ng-container *ngIf="{ overviewL: overviewLatest$ | async, overviewB: overviewBefore$ | async } as values;">
+
+          <section fxLayout.lt-sm="row wrap" fxLayout="row">
+            <div fxLayout="column" fxFlex.lt-sm="50" fxFlex="20" class="overview-container">
+              <div class="overview-item-title">Deudores Mes</div>
+              <div class="overview-item-content big">{{ values.overviewL?.debtors }}</div>
+            </div>
+            <div fxLayout="column" fxFlex.lt-sm fxFlex="20" class="overview-container">
+              <div class="overview-item-title">Prop. Pagadas</div>
+              <div class="overview-item-content big">{{ values.overviewL?.property_paid }}</div>
+            </div>
+            <div fxLayout="column" fxFlex.lt-sm="50" fxFlex="30" class="overview-container">
+              <div class="overview-item-title">
+                Monto Total Adeudado <mat-icon class="icon-title-accent">priority_high</mat-icon>
+              </div>
+              <div class="overview-item-content">{{ values.overviewL?.total_owed | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+              <div fxLayoutAlign="start center" fxLayout="row wrap">
+                <mat-icon [ngClass]="selectClassIcon(getOperator(values.overviewL?.total_owed, values.overviewB?.total_owed))" fxFlex="20">arrow_upward</mat-icon>
+                <span [ngClass]="selectClasstitle(getOperator(values.overviewL?.total_owed, values.overviewB?.total_owed))" fxFlex="30">{{ getDiff(values.overviewL?.total_owed, values.overviewB?.total_owed)}}%&nbsp;</span>
+                <span class="indicator-sub-title-gray">mes pasado</span>
+              </div>
+            </div>
+            <div fxLayout="column" fxFlex.lt-sm fxFlex="30" class="overview-container">
+              <div class="overview-item-title">
+                Monto Total Pagado <mat-icon class="icon-title-primary">done</mat-icon>
+              </div>
+              <div class="overview-item-content">{{ values.overviewL?.total_paid | currency: 'CLP':'symbol':'0.0-2':'cl' }}</div>
+              <div fxLayoutAlign="start center" fxLayout="row wrap">
+                <mat-icon [ngClass]="selectClassIcon(getOperator(values.overviewL?.total_paid, values.overviewB?.total_paid))" fxFlex="20">arrow_upward</mat-icon>
+                <span [ngClass]="selectClasstitle(getOperator(values.overviewL?.total_paid, values.overviewB?.total_paid))" fxFlex="30">{{ getDiff(values.overviewL?.total_paid, values.overviewB?.total_paid)}}%&nbsp;</span>
+                <span class="indicator-sub-title-gray">mes pasado</span>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+      </mat-card>
+
+      <mat-card *ngIf="false">
+        <mat-card-header>
+          <mat-card-title>Indicadores de Arriendo Pagados y Montos Adeudado</mat-card-title>
+          <mat-card-subtitle>{{ dateMonth | date:'MMMM yyyy':'':'cl' | titlecase }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content
+          *ngIf="overviewGraph$ | async; let graph"
+          fxLayout.lt-sm="column"
+          fxLayout="row"
+          fxLayoutGap="0.5rem"
+        >
+          <app-solid-gauge
+            fxFlex="50%"
+            [data]="[graph.paid]"
+            [stops]="[[0.9, '#febc2c']]"
+            max="100"
+            title="Arriendo Pagado"
+            dataLabel="Tabla de arriendo pagado"
+          ></app-solid-gauge>
+          <app-solid-gauge
+            fxFlex="50%"
+            [data]="[graph.owed]"
+            [stops]="[[0.9, '#fd413c']]"
+            max="100"
+            title="Monto Adeudado"
+            dataLabel="Tabla de monto pagado"
+          ></app-solid-gauge>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <mat-card fxFlex="55%">
+      <mat-card-header fxLayout="row" fxLayoutAlign="start start">
+        <section fxFlex="auto">
+          <mat-card-title>Ranking Top Deudores</mat-card-title>
+          <mat-card-subtitle>Deudada mensual</mat-card-subtitle>
+        </section>
+        <a *ngIf="showLink" routerLink="/debtors">
+          <mat-icon class="icon-display">arrow_upward</mat-icon>
+        </a>
+      </mat-card-header>
+      <mat-card-content class="table-debtor">
+        <mat-table [dataSource]="top$ | async">
+          <ng-container matColumnDef="property_id">
+            <mat-header-cell *matHeaderCellDef> CC </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.property_id }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="debtor">
+            <mat-header-cell *matHeaderCellDef> Arrendatario </mat-header-cell>
+            <mat-cell *matCellDef="let row second-item"> {{ row.lessee_name }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Estatus </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="status-red">En {{ row.status }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="months">
+            <mat-header-cell *matHeaderCellDef> Meses </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.months }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="expected">
+            <mat-header-cell *matHeaderCellDef> Adeudado </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.expected | currency: 'CLP':'symbol':'0.0-2':'cl' }} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="['property_id', 'debtor', 'status', 'months', 'expected']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['property_id', 'debtor', 'status', 'months', 'expected']"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+</section>

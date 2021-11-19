@@ -1,0 +1,11 @@
+.toast-top-right {
+  top: 54px;
+  right: 28px;
+}
+
+@media (max-width: 599px) {
+  .toast-top-right {
+    top: 60px;
+    right: 8px;
+  }
+}

@@ -1,0 +1,23 @@
+
+
+<div class="iksa-input-group">
+  <mat-form-field appearance="outline" class="input-search">
+    <input #search matInput type="search" [placeholder]="placeholder" (keydown.enter)="fetch(search.value, type.value, property.value)">
+    <a (click)="fetch(search.value, type.value, property.value)" matSuffix>
+    <mat-icon>search</mat-icon>
+    </a>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="option-search">
+    <mat-select #type placeholder="Tipo de propiedad">
+      <mat-option>Seleccione una propiedad</mat-option>
+      <mat-option *ngFor="let type of types$ | async" [value]="type?.id">{{ type?.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="option-search">
+    <mat-select #property placeholder="Empresa">
+      <mat-option>Seleccione una empresa</mat-option>
+      <mat-option *ngFor="let company of companies$ | async" [value]="company?.id">{{ company?.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+

@@ -1,0 +1,79 @@
+
+<ng-container>
+  <section fxLayout="column">
+    <div class="page-title">Deudores</div>
+
+    <app-tabs [options]="sections" (filter)="filterByDate($event)"></app-tabs>
+
+    <app-debtors id="overview" [showTitle]="false" [showLink]="false"  [dateMonth]="dateSelect"></app-debtors>
+
+    <span id="indicators" class="page-sub-title">Indicadores de Deudores</span>
+
+    <app-search-addon placeholder="Propiedad, Nombre, Rut" (filter)="search($event)"></app-search-addon>
+
+    <mat-card fxLayout="column">
+
+      <div fxLayout="row" fxFlex fxLayoutAlign="end center">
+        <div class="export-button">
+          <button mat-raised-button color="primary" (click)="exportAsXLS()">
+            <mat-icon>get_app</mat-icon>.xls
+          </button>
+          <button mat-raised-button color="accent" (click)="exportAsPDF()">
+            <mat-icon>get_app</mat-icon>.pdf
+          </button>
+        </div>
+      </div>
+
+      <mat-card-content class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="property_id">
+            <th mat-header-cell *matHeaderCellDef class="w-75" mat-sort-header> CC </th>
+            <td mat-cell *matCellDef="let row">
+              <a [routerLink]="['/show-property/' + row.property_id]" class="status-yellow">
+                {{ row.property_id }}
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lessee_rut">
+            <th mat-header-cell *matHeaderCellDef class="w-100" mat-sort-header> Rut </th>
+            <td mat-cell *matCellDef="let row"> {{ row.lessee_rut }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lessee_name">
+            <th mat-header-cell *matHeaderCellDef class="w-150" mat-sort-header> Arrendatario </th>
+            <td mat-cell *matCellDef="let row"> {{ row.lessee_name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="w-100" mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row" [ngClass]="getStatusColor(row.status)">En {{ row.status }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="months">
+            <th mat-header-cell *matHeaderCellDef class="w-75" mat-sort-header> Meses </th>
+            <td mat-cell *matCellDef="let row" > {{ row.months }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expected">
+            <th mat-header-cell *matHeaderCellDef class="text-left w-125" mat-sort-header> Monto Adeudado </th>
+            <td mat-cell *matCellDef="let row" class="text-left"> {{ row.expected | currency: 'CLP':'symbol':'0.0-2':'cl' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['property_id', 'lessee_rut', 'lessee_name', 'status', 'months', 'expected']"><tr>
+          <tr mat-row *matRowDef="let row; columns: ['property_id', 'lessee_rut', 'lessee_name', 'status', 'months', 'expected']"><tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Mora vs Retraso</mat-card-title>
+        <mat-card-subtitle>Indicadores mora contra retraso</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <app-line [series]="lineDate$ | async"></app-line>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</ng-container>

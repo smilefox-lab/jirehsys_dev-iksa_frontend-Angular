@@ -1,0 +1,44 @@
+
+@import '../../libs/common/styles/material-overrides/variables';
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+
+main {
+  flex-grow: 1;
+  overflow: auto;
+  padding: 10px 2em;
+}
+
+router-outlet {
+  margin-top: 2rem;
+}
+
+.main-content {
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.collapsed ~ .main-content {
+  font-size: 16px;
+  margin-left: 55px;
+}
+
+@media (min-width: 960px) {
+  .expanded {
+    margin-left: $expanded;
+  }
+
+  .collapsed {
+    margin-left: $collapsed;
+  }
+}
+
+@media (max-width: 959px) {
+  main {
+    margin-top: 56px;
+    margin-left: 0;
+    padding: 10px 0.75em;
+  }
+}

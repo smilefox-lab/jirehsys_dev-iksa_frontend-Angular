@@ -1,0 +1,63 @@
+@import '../../../../libs/common/styles/theme';
+
+$color: map-get($korlaet-background-black, 50);
+
+.show-indicators {
+  background-color: map-get($korlaet-background-black, 800);
+  color: $color;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.right-box {
+  .mat-form-field {
+    text-align: right !important;
+    letter-spacing: 1px;
+  }
+}
+
+.mat-input-element:disabled {
+  color: $color;
+  letter-spacing: 1px;
+}
+
+button {
+  margin-top: 3.5px;
+}
+
+.mat-raised-button,
+.mat-flat-button {
+  padding: 0 0.5rem !important;
+  border-radius: 4px !important;
+  min-width: 1.5rem !important;
+  color: $color;
+  background-color: map-get($korlaet-background-black, 500);
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+@media (max-width: 599px) {
+  ::ng-deep {
+
+    .select-company {
+      &.mat-form-field-appearance-outline {
+        .mat-form-field-outline-start {
+          border-radius: 2em 0 0 2em;
+          min-width: 2em;
+        }
+
+        .mat-form-field-outline-end {
+          border-radius: 0 2em 2em 0;
+        }
+      }
+    }
+
+    .mat-select-value {
+      padding-left: 0.5em !important;
+    }
+  }
+
+
+}

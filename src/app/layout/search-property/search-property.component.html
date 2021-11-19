@@ -1,0 +1,16 @@
+
+<section fxLayout="column">
+  <div class="page-title">Búsqueda de Propiedad</div>
+  <app-search-addon placeholder="Dirección, Rol, Comuna" (filter)="search($event)"></app-search-addon>
+  <section *ngIf="properties$ | async; let properties" class="iksa-property-results">
+    <div *ngIf="properties.length > 0" class="page-sub-title">Resultados</div>
+    <mat-paginator *ngIf="properties.length > 0" class="my-2" [length]="lengthPages"
+      [pageSize]="this.pageSize"
+      [pageSizeOptions]="[5, 10, 20, 30]"
+      (page)="onChangePage($event)"
+    >
+    </mat-paginator>
+    <app-property *ngFor="let property of properties$ | async" [property]="property"></app-property>
+  </section>
+
+</section>

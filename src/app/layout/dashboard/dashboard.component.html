@@ -1,0 +1,12 @@
+<section>
+  <div class="page-title">Dashboard</div>
+  <app-tabs [options]="sections" (filter)="filterByDate($event)"></app-tabs>
+
+  <main fxLayout="column" fxLayoutGap="1rem">
+    <app-lease id="summary" [dateMonth]="dateSelect"></app-lease>
+    <app-debtors id="debtors" [dateMonth]="dateSelect"></app-debtors>
+    <app-general-information id="general_information"></app-general-information>
+    <app-property-available id="available_property"></app-property-available>
+    <app-company-files></app-company-files>
+  </main>
+</section>

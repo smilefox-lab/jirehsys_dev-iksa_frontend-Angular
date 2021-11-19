@@ -1,0 +1,45 @@
+
+@import '../../../../libs/common/styles/theme';
+
+.properties-container {
+  margin-bottom: -1.5rem !important;
+}
+
+.property-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: map-get($korlaet-background-black, 200) !important;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.property-item-content {
+  font-size: 25px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.company-container {
+  &:not(:last-of-type) {
+    margin-right: 1em;
+    border-right: 1px solid map-get($korlaet-background-black, 400) !important;
+  }
+}
+
+.status-yellow {
+  cursor: pointer;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none !important;
+  opacity: 0.8;
+}
+
+@media (max-width: 599px) {
+
+  .date-filter {
+    width: 160px;
+  }
+}

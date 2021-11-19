@@ -1,0 +1,47 @@
+
+<div
+  fxLayout="row"
+  [fxLayoutAlign]="(hideSelect$ | async) ? 'end start' : 'space-between center'"
+  fxLayoutGap.gt-sm="0.5rem"
+>
+  <ng-container >
+    <mat-form-field
+      *ngIf="!(hideSelect$ | async)"
+      appearance="outline"
+      class="select-company"
+      fxFlex.gt-sm="35"
+      fxFlex.lt-sm="100"
+    >
+      <mat-select panelClass="my-panel-color" [value]="selectedCompany$ | async" (selectionChange)="changedCompany($event.value)">
+        <mat-option *ngIf="showHolding()" value="">Holding</mat-option>
+        <mat-option *ngFor="let company of companies$ | async" [value]="company.id.toString()">{{ company.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+  <div
+    class="right-box"
+    fxLayout="row"
+    fxLayoutAlign="end start"
+    fxLayoutGap="0.5rem"
+    fxFlex.gt-sm="50"
+  >
+    <mat-form-field
+      fxShow.lt-sm="false"
+      disabled
+      appearance="outline"
+      fxFlex.gt-sm="50"
+    >
+      <span matPrefix>USD/UF</span>
+      <input
+        *ngIf="indicator$ | async; let indicator;"
+        matInput
+        disabled
+        value="{{ indicator.usd | currency:'USD':'symbol':'3.2-2':'cl' }}/{{ indicator.uf | currency: 'CLP':'symbol':'3.2-2':'cl' }}"
+      >
+    </mat-form-field>
+    <button mat-flat-button [matBadge]="alerts?.length" [matBadgeHidden]="onBadgeHidden()" matBadgePosition="after" matBadgeColor="primary" matBadgeSize="small" fxShow.lt-sm="false" (click)="showAlert()">
+      <mat-icon fontSet="material-icons-outlined">notifications</mat-icon>
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,49 @@
+@import '../../../../../libs/common/styles/theme';
+
+
+.document-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+  background-color: transparentize(map-get($korlaet-background-black, 300), 0.7);
+  border-radius: 0.5em;
+
+  a {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    line-height: 0em;
+    cursor: pointer;
+  }
+}
+
+.mat-tab-content {
+  &.files {
+    padding: 0.5em 0.5em 0.5em;
+    max-height: 300px;
+  }
+}
+
+.document-item {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  font-size: 15px;
+
+  & > *:not(:last-child) {
+    margin-right: 0.5em;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
+    span {
+      padding-left: 8px;
+    }
+  }
+}

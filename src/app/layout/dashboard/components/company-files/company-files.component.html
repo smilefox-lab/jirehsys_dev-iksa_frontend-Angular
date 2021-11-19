@@ -1,0 +1,19 @@
+<section id="files" fxFlex="100">
+  <mat-tab-group mat-align-tabs="start" animationDuration="0ms">
+    <mat-tab label="Archivos">
+      <div class="mat-tab-content files" fxLayout="column" fxLayoutGap="0.5em" *ngFor="let file of selectedCompanyFiles$ | async">
+        <div class="document-container">
+          <div class="document-item">
+            <a (click)="download(file)">
+              <mat-icon color="primary">get_app</mat-icon>
+
+              <span>{{ getFileName(file) | lowercase  }}</span>
+            </a>
+          </div>
+
+          <mat-icon color="primary" fontSet="material-icons-outlined">text_snippet</mat-icon>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</section>

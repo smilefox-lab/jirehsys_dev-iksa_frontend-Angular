@@ -1,0 +1,179 @@
+
+<nav
+  class="iksa-sidebar"
+  fxLayout.lt-md="row"
+  fxLayoutAlign.lt-md="space-between center"
+  fxLayout="column"
+  fxLayoutAlign="space-between center"
+  [ngClass]="{ 'expanded': isExpanded, 'collapsed': !isExpanded }"
+>
+  <div
+    class="menu-icon"
+    fxFlexOrder.lt-md="0"
+    fxShow.lt-md="true"
+    fxHide.gt-sm="true"
+    (click)="onShowMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </div>
+
+  <div
+    fxShow.lt-md="true"
+    fxHide.gt-sm="true"
+    class="menu-action"
+    fxFlexOrder.lt-md="1"
+  >
+    <div class="menu-search">
+      <a [routerLinkActive]="'active'" [routerLink]="['/search-properties']">
+        <mat-icon fontSet="material-icons-outlined">search</mat-icon>
+      </a>
+    </div>
+    <div class="menu-notification" [matBadge]="alerts?.length" [matBadgeHidden]="onBadgeHidden()" matBadgePosition="after" matBadgeColor="primary" matBadgeSize="small" (click)="showAlert()">
+      <mat-icon fontSet="material-icons-outlined">notifications</mat-icon>
+    </div>
+    <div>
+      <img class="user-box-avatar" src="assets/images/logo_alone.png">
+    </div>
+  </div>
+
+  <div
+    fxLayout="column"
+    fxLayoutAlign.gt-sm="center center"
+    fxFlexOrder="0"
+    fxShow.lt-md="false"
+    fxHide.gt-sm="false"
+    style="width: 100%;"
+  >
+    <div
+      class="menu-icon"
+      fxFlexOffset="1em"
+      fxLayout.gt-sm="row"
+      [fxLayoutAlign.gt-sm]="isExpanded ? 'start center' : 'center center'"
+    >
+      <div *ngIf="!isExpanded" (click)="onExpanded()">
+        <mat-icon>menu</mat-icon>
+      </div>
+      <div *ngIf="isExpanded" (click)="onExpanded()">
+        <span>&times;</span>
+      </div>
+    </div>
+
+    <div
+      class="menu-logo"
+      fxFlexOffset="4em"
+    >
+      <img
+        class="user-box-avatar"
+        src="assets/images/logo_alone.png"
+      >
+    </div>
+  </div>
+
+  <div
+    fxFlexOrder="1"
+    fxFlex="40"
+    fxShow.lt-md="false"
+    fxHide.gt-sm="false"
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    fxFill
+  >
+    <button *ngIf="!isExpanded" mat-raised-button color="primary" [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
+      <mat-icon class="icon-dashboard" fontSet="material-icons-outlined">home</mat-icon>
+    </button>
+    <a *ngIf="!isExpanded" class="menu-search" fxFlexOffset="2rem" [routerLinkActive]="'active'" [routerLink]="['/search-properties']">
+      <mat-icon fontSet="material-icons-outlined">search</mat-icon>
+    </a>
+
+    <div
+      *ngIf="isExpanded"
+      class="menu-content"
+      fxLayout="column"
+    >
+      <div class="menu-item">
+        <a [routerLinkActive]="'active'" [routerLink]="['/dashboard']" (click)="onHideMenu()">
+          Dashboard
+        </a>
+      </div>
+      <div class="menu-item">
+        <a [routerLinkActive]="'active'" [routerLink]="['/properties']" (click)="onHideMenu()">
+          Propiedades
+        </a>
+      </div>
+      <div class="menu-item">
+        <a [routerLinkActive]="'active'" [routerLink]="['/debtors']" (click)="onHideMenu()">
+          Deudores
+        </a>
+      </div>
+      <div class="menu-item">
+        <a [routerLinkActive]="'active'" [routerLink]="['/leases']" (click)="onHideMenu()">
+          Arriendo
+        </a>
+      </div>
+      <div class="menu-item">
+        <a [routerLinkActive]="'active'" [routerLink]="['/search-properties']" (click)="onHideMenu()">
+          Búsqueda de Propiedad
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="menu-end"
+    fxFlexOrder="2"
+    [fxLayoutAlign]="isExpanded ? 'start end' : 'center start'"
+    fxShow.lt-md="false"
+  >
+    <a
+      href="javascript:void(0)"
+      (click)="logout()"
+      fxLayout.gt-sm="row"
+      [fxLayoutAlign]="isExpanded ? 'start center' : 'center center'"
+    >
+      <mat-icon color="primary">exit_to_app</mat-icon>
+      <span *ngIf="isExpanded">Salir</span>
+    </a>
+  </div>
+</nav>
+
+<div
+  *ngIf="showMenu"
+  fxShow.lt-md="true"
+  fxHide.gt-sm="true"
+  class="menu-modal"
+>
+  <div class="menu-close" (click)="onHideMenu()">&times;</div>
+  <div class="menu-content">
+    <div class="menu-item">
+      <a [routerLinkActive]="'active'" [routerLink]="['/dashboard']" (click)="onHideMenu()">
+        Dashboard
+      </a>
+    </div>
+    <div class="menu-item">
+      <a [routerLinkActive]="'active'" [routerLink]="['/properties']" (click)="onHideMenu()">
+        Propiedades
+      </a>
+    </div>
+    <div class="menu-item">
+      <a [routerLinkActive]="'active'" [routerLink]="['/debtors']" (click)="onHideMenu()">
+        Deudores
+      </a>
+    </div>
+    <div class="menu-item">
+      <a [routerLinkActive]="'active'" [routerLink]="['/leases']" (click)="onHideMenu()">
+        Arriendo
+      </a>
+    </div>
+    <div class="menu-item">
+      <a [routerLinkActive]="'active'" [routerLink]="['/search-properties']" (click)="onHideMenu()">
+        Búsqueda de Propiedad
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="javascript:void(0)" (click)="logout()" (click)="onHideMenu()">
+        Salir
+      </a>
+    </div>
+  </div>
+</div>
+

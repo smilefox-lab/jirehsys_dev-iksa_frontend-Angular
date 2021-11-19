@@ -1,0 +1,19 @@
+
+<div class="tab-container iksa-date-picker">
+  <div class="tab-menu">
+    <ng-container *ngFor="let item of options; index as i;">
+
+      <a class="tab-item" *ngIf="item.href; else anchor" [routerLinkActive]="'active'" [routerLink]="[item.href]">{{ item.name }}</a>
+      <ng-template #anchor>
+        <a class="tab-item" pageScroll [pageScrollTarget]="'#'+item.anchor" [href]="'#'+item.anchor">{{ item.name }}</a>
+      </ng-template>
+    </ng-container>
+  </div>
+  <mat-form-field *ngIf="showFilter" class="tab-filter" appearance="outline">
+    <input matInput [matDatepicker]="tab" (dateChange)="dateChange($event)" placeholder="fecha">
+    <mat-datepicker-toggle matSuffix [for]="tab">
+      <mat-icon matDatepickerToggleIcon color="primary">keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #tab></mat-datepicker>
+  </mat-form-field>
+</div>

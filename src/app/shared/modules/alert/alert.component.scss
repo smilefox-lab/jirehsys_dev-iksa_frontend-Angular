@@ -1,0 +1,75 @@
+@import '../../../../libs/common/styles/theme';
+
+:host {
+  display: flex;
+  flex-flow: row;
+  background-color: map-get($korlaet-background-black, 500) !important;
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 0.5em 0.5em 0.5em 0.5em !important;
+  width: 390px !important;
+  border-radius: 0.5em !important;
+  color: map-get($korlaet-background-black, 200) !important;
+  pointer-events: all;
+  cursor: pointer;
+  box-shadow: none !important;
+
+  .custom-container {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+    justify-content: flex-start;
+  }
+
+  .custom-icon {
+    padding: 0 2em 0 0.5em;
+    align-self: center;
+
+    .icon {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: map-get($korlaet-red, 500) !important;;
+    }
+  }
+}
+
+.custom-content {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+}
+
+.custom-close {
+  justify-items: flex-end;
+}
+
+.close-button {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  color: map-get($korlaet-background-black, 500) !important;
+  background-color: map-get($korlaet-background-black, 200) !important;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.custom-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: map-get($korlaet-background-black, 50) !important;
+}
+
+.custom-message {
+  font-size: 14px;
+  color: map-get($korlaet-background-black, 200) !important;
+}

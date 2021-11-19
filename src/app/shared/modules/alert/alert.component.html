@@ -1,0 +1,28 @@
+<div class="custom-container">
+  <div class="custom-icon"><div class="icon"></div></div>
+  <div class="custom-content">
+    <div *ngIf="title"
+      [class]="options.titleClass"
+      [attr.aria-label]="title"
+      class="custom-title">
+      {{ title }}
+    </div>
+    <div *ngIf="message && options.enableHtml" role="alert" aria-live="polite"
+        class="custom-message"
+        [class]="options.messageClass" [innerHTML]="message">
+      </div>
+      <div *ngIf="message && !options.enableHtml" role="alert" aria-live="polite"
+        class="custom-message"
+        [class]="options.messageClass" [attr.aria-label]="message">
+        {{ message }}
+      </div>
+  </div>
+  <div class="custom-close">
+    <a *ngIf="options.closeButton" (click)="remove()" class="close-button">
+      &times;
+    </a>
+  </div>
+</div>
+<div *ngIf="options.progressBar">
+  <div class="toast-progress" [style.width]="width + '%'"></div>
+</div>

@@ -1,0 +1,92 @@
+@import '../../../../libs/common/styles/theme';
+
+a:hover,
+a:focus {
+  text-decoration: none !important;
+  opacity: 0.8;
+}
+
+.indicator-rent-title {
+  font-size: 14px;
+  margin-bottom: 0.5em;
+  color: map-get($korlaet-background-black, 100);
+}
+
+.indicator-rent-content {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.indicator-sub-title-positive {
+  font-size: 11px;
+  color: map-get($korlaet-yellow, 500);
+}
+.indicator-sub-title-negative {
+  font-size: 11px;
+  color: map-get($korlaet-red, 500);
+}
+
+.indicator-sub-title-gray {
+  font-size: 11px;
+  color: map-get($korlaet-background-black, 200);
+}
+
+.companies-container {
+  margin-bottom: -1rem !important;
+}
+
+.indicator-company-title {
+  font-size: 13px;
+  color: map-get($korlaet-background-black, 200);
+  margin-bottom: 0.25rem;
+}
+
+.indicator-company-content {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.indicator-company-option-title {
+  font-size: 9px;
+  line-height: 12px;
+  color: map-get($korlaet-background-black, 200);
+}
+
+.indicator-company-option-title-content {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+mat-card {
+  &.mat-card-padding {
+    padding: 1em 1.5em;
+  }
+}
+
+mat-progress-bar {
+  margin-top: 17px;
+}
+
+@media (min-width: 600px) {
+  .indicator-rent-container {
+    &:not(:last-of-type) {
+      border-right: 1px solid map-get($korlaet-background-black, 400) !important;
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .indicator-rent-content {
+    font-size: 18px;
+  }
+
+  .indicator-rent-container {
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    &:nth-child(even) {
+      padding-right: 1em;
+      border-left: 1px solid map-get($korlaet-background-black, 400) !important;;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+
+.pie-container {
+  width: 240px;
+  height: 220px;
+}
+
+@media (max-width: 599px) {
+  .pie-container {
+    width: 230px;
+    height: 198px;
+  }
+}
